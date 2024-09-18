@@ -7,7 +7,7 @@ export const buttonStyle = {
     backgroundColor: '#d94b52',
     color: 'white',
     fontSize: '14px',
-    'text-transform': 'uppercase',
+    textTransform: 'uppercase',
     outline: 'none',
 };
 

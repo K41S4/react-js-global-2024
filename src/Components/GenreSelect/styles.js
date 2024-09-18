@@ -7,7 +7,7 @@ export const buttonStyle = {
     backgroundColor: '#333',
     color: 'white',
     outline: 'none',
-    'text-transform': 'uppercase',
+    textTransform: 'uppercase',
 };
 
 export const selectedButtonStyle = {
