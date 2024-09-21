@@ -1,5 +1,5 @@
 import { useState } from "react";
-import './App.css';
+import styles from './App.module.css';
 import { Counter } from './Components/Counter/Counter';
 import { GenreSelect } from './Components/GenreSelect/GenreSelect';
 import { SearchForm } from './Components/SearchForm/SearchForm';
@@ -9,8 +9,7 @@ export function App() {
   const genres = ['All', 'Comedy', 'Horror', 'Crime'];
 
   return (
-    <div className="app">
-
+    <div className={styles.container}>
       <div>
         <Counter initialValue={3} />
       </div>
