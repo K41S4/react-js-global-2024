@@ -1,19 +1,13 @@
-import React from "react";
-import { buttonStyle, containerStyle, selectedButtonStyle } from "./styles";
+import './GenreSelect.css';
 
 export const GenreSelect = ({ allGenres, selectedGenre, onSelect }) => {
-    const handler = (e) => {
-        onSelect(e.target.name);
-    };
-
     return (
-        <div style={containerStyle}>
+        <div className="genreSelectContainer">
             {allGenres.map((genre) => (
                 <button
                     key={genre}
-                    onClick={handler}
-                    name={genre}
-                    style={genre === selectedGenre ? selectedButtonStyle : buttonStyle}
+                    onClick={() => onSelect(genre)}
+                    className={genre === selectedGenre ? "selectedButton" : "button"}
                 >
                     {genre}
                 </button>

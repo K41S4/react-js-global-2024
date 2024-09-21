@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import './App.css';
 import { Counter } from './Components/Counter/Counter';
 import { GenreSelect } from './Components/GenreSelect/GenreSelect';
 import { SearchForm } from './Components/SearchForm/SearchForm';
 
-function App() {
+export function App() {
   const [selectedGenre, setSelectedGenre] = useState('All');
   const genres = ['All', 'Comedy', 'Horror', 'Crime'];
 
   return (
-    <div className="App">
+    <div className="app">
 
       <div>
         <Counter initialValue={3} />
       </div>
 
       <div>
-        <SearchForm initialSearchQuery={'Initial search'} onSearch={(value) => console.log(value)}/>
+        <SearchForm initialSearchQuery='Initial search' onSearch={(value) => console.log(value)}/>
       </div>
       
       <div>
@@ -25,5 +25,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

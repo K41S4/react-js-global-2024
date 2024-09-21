@@ -1,31 +1,20 @@
-import React, { useState } from "react";
-import { buttonStyle, containerStyle, inputStyle } from "./styles";
+import { useState } from "react";
+import './SearchForm.css';
 
 export const SearchForm = ({ initialSearchQuery, onSearch }) => {
     const [searchValue, setSearchValue] = useState(initialSearchQuery);
 
-    const handleSearch = () => {
-        onSearch(searchValue);
-    }
-
-    const onEnterKey = (e) => {
-        if (e.key === 'Enter') {
-            handleSearch();
-        }
-    }
-
     return (
-        <div style={containerStyle}>
+        <form className="searchContainer" onSubmit={() => onSearch(searchValue)}>
             <input 
                 type='text' 
                 onChange={(e) => setSearchValue(e.target.value)} 
                 value={searchValue} 
-                onKeyDown={onEnterKey} 
-                style={inputStyle} 
+                className="searchInput" 
             />
-            <button onClick={handleSearch} style={buttonStyle}>
-                {'Search'}
+            <button className="searchButton">
+                Search
             </button>
-        </div>
+        </form>
     );
 }
