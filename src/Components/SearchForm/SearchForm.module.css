@@ -1,0 +1,29 @@
+.button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #d94b52;
+    color: white;
+    font-size: 14px;
+    text-transform: uppercase;
+    outline: none;
+}
+
+.input {
+    background: #333;
+    color: white;
+    padding: 10px 20px;
+    border: non;
+    border-radius: 3px;
+    width: 250px;
+    margin-right: 10px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
