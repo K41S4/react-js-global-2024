@@ -15,11 +15,11 @@ export function App() {
       </div>
 
       <div>
-        <SearchForm initialSearchQuery='Initial search' onSearch={(value) => console.log(value)}/>
+        <SearchForm initialSearchQuery='Initial search' onSearch={(value) => console.log(value)} />
       </div>
-      
+
       <div>
-        <GenreSelect allGenres={genres} selectedGenre={selectedGenre} onSelect={(genre) => setSelectedGenre(genre)}/>
+        <GenreSelect allGenres={genres} selectedGenre={selectedGenre} onSelect={(genre) => setSelectedGenre(genre)} />
       </div>
     </div>
   );
