@@ -1,41 +1,31 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
 import { Counter } from '../Counter';
 
-describe('Counter tests', () => {
-  const initialValue = 5;
+describe('Counter', () => {
+  test('renders initial value', () => {
+    const initialValue = 5;
 
-  test('initial value is rendered correctly', async () => {
-    // Arrange
-    // Act
     render(<Counter initialValue={initialValue} />);
 
-    // Assert
-    expect(await screen.findByTestId('counter-div')).toHaveTextContent(initialValue);
+    expect(screen.getByText(initialValue)).toBeInTheDocument();
   });
 
-  test('increment button is handled correctly', async () => {
-    // Arrange
+  test('increments counter on increment button click', async () => {
     const user = userEvent.setup();
-    render(<Counter initialValue={initialValue} />);
+    render(<Counter initialValue={5} />);
 
-    // Act
     await user.click(screen.getByRole('button', { name: 'Increment' }));
 
-    // Assert
-    expect(screen.getByTestId('counter-div')).toHaveTextContent(initialValue + 1);
+    expect(screen.getByText(6)).toBeInTheDocument();
   });
 
-  test('decrement button is handled correctly', async () => {
-    // Arrange
+  test('decrements counter on decrement button click', async () => {
     const user = userEvent.setup();
-    render(<Counter initialValue={initialValue} />);
+    render(<Counter initialValue={5} />);
 
-    // Act
     await user.click(screen.getByRole('button', { name: 'Decrement' }));
 
-    // Assert
-    expect(screen.getByTestId('counter-div')).toHaveTextContent(initialValue - 1);
+    expect(screen.getByText(4)).toBeInTheDocument();
   });
 });
