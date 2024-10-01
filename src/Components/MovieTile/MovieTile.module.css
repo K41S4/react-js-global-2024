@@ -1,0 +1,48 @@
+.container {
+  width: 250px;
+  color: white;
+  background-color: transparent;
+  overflow: hidden;
+  font-weight: 100;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container img {
+  width: 100%;
+  display: block;
+}
+
+.container > div {
+  padding: 8px;
+}
+
+.movieName {
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.detailsContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.releaseYear {
+  display: inline-block;
+  width: 66px;
+  height: 26px;
+  line-height: 26px;
+  border-radius: 10%;
+  border: 1px solid #979797;
+  text-align: center;
+  font-size: 14px;
+  background-color: transparent;
+}
+
+.relevantGenres {
+  font-size: 14px;
+  color: #979797;
+}
