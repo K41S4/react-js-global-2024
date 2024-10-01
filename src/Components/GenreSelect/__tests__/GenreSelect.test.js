@@ -4,7 +4,7 @@ import { GenreSelect } from '../GenreSelect';
 import styles from './GenreSelect.module.css';
 
 describe('GenreSelect', () => {
-  test('all genres are rendered', () => {
+  test('renders all genres', () => {
     const genres = ['test1', 'test2', 'test3'];
 
     render(<GenreSelect allGenres={genres} selectedGenre={'test1'} onSelect={jest.fn()} />);
@@ -14,7 +14,7 @@ describe('GenreSelect', () => {
     });
   });
 
-  test('selected genre is highlighted', () => {
+  test('highlights selected genre', () => {
     const selectedGenre = 'test1';
     const onSelectMock = jest.fn();
 
@@ -27,7 +27,7 @@ describe('GenreSelect', () => {
     expect(selectedButton).not.toHaveClass(styles.button);
   });
 
-  test('onSearch callback is called with proper value when search button is clicked', async () => {
+  test('calls onSearch callback with proper value on search button click', async () => {
     const user = userEvent.setup();
     const onSelectMock = jest.fn();
     const genreToSelect = 'test2';
