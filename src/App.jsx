@@ -7,12 +7,16 @@ import { MovieDetails } from './Components/MovieDetails/MovieDetails';
 import { MovieTile } from './Components/MovieTile/MovieTile';
 import styles from './App.module.css';
 import { SortControl } from './Components/SortControl/SortControl';
+import { Dialog } from './Components/Dialog/Dialog';
+import { MovieForm } from './Components/MovieForm/MovieForm';
 
 export function App() {
   const [selectedGenre, setSelectedGenre] = useState('All');
   const genres = ['All', 'Comedy', 'Horror', 'Crime'];
 
   const [selectSortOptions, setSelectedSortOption] = useState(sortOptions[0].value);
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -47,6 +51,15 @@ export function App() {
           relevantGenres={movieData.relevantGenres}
           onClick={() => console.log('click')}
         />
+      </div>
+
+      <div>
+        <button onClick={() => setIsDialogOpen(true)}>Open dialog</button>
+        {isDialogOpen && (
+          <Dialog title={'Title'} onClose={() => setIsDialogOpen(false)}>
+            <MovieForm genres={genres} onSubmit={() => {}} />
+          </Dialog>
+        )}
       </div>
 
       <div>
