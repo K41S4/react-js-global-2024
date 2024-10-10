@@ -1,14 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import { SortControl } from '../SortControl';
 import userEvent from '@testing-library/user-event';
+import { sortOptions } from '../../../constants';
 
 describe('SortControl', () => {
   test('renders all options', () => {
     render(<SortControl selectedOption={''} onSelect={jest.fn()} />);
 
-    expect(screen.getAllByRole('option')).toHaveLength(2);
-    expect(screen.getByRole('option', { name: 'Title' })).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: 'Release Date' })).toBeInTheDocument();
+    expect(screen.getAllByRole('option')).toHaveLength(sortOptions.length);
+
+    sortOptions.forEach((option) => {
+      expect(screen.getByRole('option', { name: option.label })).toBeInTheDocument();
+    });
   });
 
   test('renders selected value', () => {
@@ -21,11 +24,11 @@ describe('SortControl', () => {
 
   test('calls callback on option select', async () => {
     const user = userEvent.setup();
-    const onSelect = jest.fn();
+    const onSelectMock = jest.fn();
 
-    render(<SortControl selectedOption={'releaseDate'} onSelect={onSelect} />);
+    render(<SortControl selectedOption={'releaseDate'} onSelect={onSelectMock} />);
 
     await user.selectOptions(screen.getByRole('combobox'), 'title');
-    expect(onSelect).toHaveBeenCalledWith('title');
+    expect(onSelectMock).toHaveBeenCalledWith('title');
   });
 });

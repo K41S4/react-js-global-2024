@@ -8,13 +8,9 @@
     'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 
-.container img {
+.image {
   width: 100%;
   display: block;
-}
-
-.container > div {
-  padding: 8px;
 }
 
 .movieName {
@@ -28,6 +24,7 @@
 .detailsContainer {
   display: flex;
   justify-content: space-between;
+  padding: 8px;
 }
 
 .releaseYear {
@@ -45,4 +42,5 @@
 .relevantGenres {
   font-size: 14px;
   color: #979797;
+  padding: 8px;
 }
