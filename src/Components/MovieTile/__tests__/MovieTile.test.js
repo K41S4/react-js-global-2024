@@ -11,25 +11,21 @@ describe('MovieTile', () => {
       relevantGenres: ['genre1', 'genre2'],
     };
 
-    render(<MovieTile {...testData} />);
+    const { asFragment } = render(<MovieTile {...testData} />);
 
-    expect(screen.getByRole('img')).toHaveAttribute('src', testData.imageUrl);
-    expect(screen.getByText(testData.movieName)).toBeInTheDocument();
-    expect(screen.getByText(testData.releaseYear)).toBeInTheDocument();
-    expect(screen.getByText('genre1 & genre2')).toBeInTheDocument();
+    expect(asFragment()).toMatchSnapshot();
   });
 
-  test('renders without throwing an exception with undefined relevant genres', () => {
+  test('renders with required props', () => {
     const testData = {
       imageUrl: 'imageUrl',
       movieName: 'testName',
       releaseYear: 'testYear',
-      relevantGenres: undefined,
     };
 
-    expect(() => {
-      render(<MovieTile {...testData} />);
-    }).not.toThrow();
+    const { asFragment } = render(<MovieTile {...testData} />);
+
+    expect(asFragment()).toMatchSnapshot();
   });
 
   test('calls onClick callback on container click', async () => {
@@ -42,9 +38,9 @@ describe('MovieTile', () => {
     const onClickMock = jest.fn();
     const user = userEvent.setup();
 
-    render(<MovieTile {...defaultProps} onClick={onClickMock} />);
+    const { container } = render(<MovieTile {...defaultProps} onClick={onClickMock} />);
 
-    await user.click(screen.getByRole('img').closest('div'));
+    await user.click(container.firstElementChild);
 
     expect(onClickMock).toHaveBeenCalled();
   });

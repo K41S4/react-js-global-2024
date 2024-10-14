@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { MovieDetails } from '../MovieDetails';
 
 describe('MovieDetails', () => {
@@ -12,13 +12,8 @@ describe('MovieDetails', () => {
       description: 'testDescription',
     };
 
-    render(<MovieDetails {...testData} />);
+    const { asFragment } = render(<MovieDetails {...testData} />);
 
-    expect(screen.getByRole('img')).toHaveAttribute('src', testData.imageUrl);
-    expect(screen.getByText(testData.movieName)).toBeInTheDocument();
-    expect(screen.getByText(testData.releaseYear)).toBeInTheDocument();
-    expect(screen.getByText(testData.rating)).toBeInTheDocument();
-    expect(screen.getByText(testData.duration)).toBeInTheDocument();
-    expect(screen.getByText(testData.description)).toBeInTheDocument();
+    expect(asFragment()).toMatchSnapshot();
   });
 });
