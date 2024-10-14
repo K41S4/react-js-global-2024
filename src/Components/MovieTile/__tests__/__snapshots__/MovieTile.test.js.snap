@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieTile renders all details 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <img
+      alt=""
+      class="image"
+      src="imageUrl"
+    />
+    <div
+      class="detailsContainer"
+    >
+      <div
+        class="movieName"
+      >
+        testName
+      </div>
+      <div
+        class="releaseYear"
+      >
+        testYear
+      </div>
+    </div>
+    <div
+      class="relevantGenres"
+    >
+      genre1 & genre2
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MovieTile renders with required props 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <img
+      alt=""
+      class="image"
+      src="imageUrl"
+    />
+    <div
+      class="detailsContainer"
+    >
+      <div
+        class="movieName"
+      >
+        testName
+      </div>
+      <div
+        class="releaseYear"
+      >
+        testYear
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

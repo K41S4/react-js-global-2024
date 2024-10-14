@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieDetails renders all details 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <img
+      alt=""
+      class="image"
+      src="imageUrl"
+    />
+    <div>
+      <div
+        class="headerContainer"
+      >
+        <h2
+          class="movieName"
+        >
+          testName
+        </h2>
+        <span
+          class="rating"
+        >
+          testRating
+        </span>
+      </div>
+      <div
+        class="detailsContainer"
+      >
+        <div
+          class="releaseYear"
+        >
+          testYear
+        </div>
+        <div
+          class="duration"
+        >
+          testDuration
+        </div>
+      </div>
+      <div
+        class="description"
+      >
+        testDescription
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
