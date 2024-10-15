@@ -26,7 +26,7 @@ export default {
 
 export const AddMovieStory = {
   args: {
-    genres: ['All', 'Horror', 'Crime'],
+    genres: ['Horror', 'Crime'],
     movie: {
       title: '',
       releaseDate: '',

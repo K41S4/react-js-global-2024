@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './MovieForm.module.css';
-import { LabeledInput } from '../LabeledInput/LabeledInput';
+import { LabeledInput } from './LabeledInput/LabeledInput';
 
 export const MovieForm = ({ initialValues = {}, onSubmit, genres }) => {
   const [movie, setMovie] = useState({
@@ -29,13 +29,13 @@ export const MovieForm = ({ initialValues = {}, onSubmit, genres }) => {
       description: '',
     });
   };
+
   return (
     <form
       className={styles.container}
       onSubmit={(e) => {
         e.preventDefault();
         const formData = Object.fromEntries(new FormData(e.target));
-        console.log(formData);
         onSubmit(formData);
       }}
     >
@@ -57,13 +57,17 @@ export const MovieForm = ({ initialValues = {}, onSubmit, genres }) => {
       </div>
       <div className={styles.formRow}>
         <div className={styles.formGroup}>
-          <label htmlFor={'genres'}>Genre</label>
-          <select id={'genres'} name="genre">
-            {genres.map((genre) => (
-              <option key={genre} value={genre}>
-                {genre}
-              </option>
-            ))}
+          <label className={styles.label} htmlFor={'genres'}>
+            Genre
+          </label>
+          <select className={styles.select} id={'genres'} name="genre" defaultValue={movie.genre}>
+            <option hidden></option>
+            {!!genres?.length &&
+              genres.map((genre) => (
+                <option key={genre} value={genre}>
+                  {genre}
+                </option>
+              ))}
           </select>
         </div>
         <div className={styles.formGroup}>

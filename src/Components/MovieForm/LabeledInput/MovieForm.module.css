@@ -1,0 +1,13 @@
+.label {
+  margin-bottom: 5px;
+  color: #f65261;
+}
+
+.input {
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #424242;
+  border: none;
+  border-radius: 2px;
+  color: #ffffff;
+}

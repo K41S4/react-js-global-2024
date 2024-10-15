@@ -15,12 +15,13 @@ describe('MovieForm', () => {
       description: 'Test description',
     };
 
-    render(<MovieForm onSubmit={jest.fn()} genres={[]} />);
+    render(<MovieForm onSubmit={jest.fn()} genres={['Action']} />);
 
     const titleInput = screen.getByLabelText('Title');
     const releaseDateInput = screen.getByLabelText('Release Date');
     const imageUrlInput = screen.getByLabelText('Image Url');
     const ratingInput = screen.getByLabelText('Rating');
+    const genreInput = screen.getByLabelText('Genre');
     const runtimeInput = screen.getByLabelText('Runtime');
     const descriptionTextarea = screen.getByLabelText('Description');
 
@@ -28,6 +29,7 @@ describe('MovieForm', () => {
     await user.type(releaseDateInput, movieDetails.releaseDate);
     await user.type(imageUrlInput, movieDetails.imageUrl);
     await user.type(ratingInput, movieDetails.rating);
+    await user.selectOptions(genreInput, movieDetails.genre);
     await user.type(runtimeInput, movieDetails.runtime);
     await user.type(descriptionTextarea, movieDetails.description);
 
@@ -35,6 +37,7 @@ describe('MovieForm', () => {
     expect(releaseDateInput).toHaveValue(movieDetails.releaseDate);
     expect(imageUrlInput).toHaveValue(movieDetails.imageUrl);
     expect(ratingInput).toHaveValue(movieDetails.rating);
+    expect(genreInput).toHaveValue(movieDetails.genre);
     expect(runtimeInput).toHaveValue(movieDetails.runtime);
     expect(descriptionTextarea).toHaveValue(movieDetails.description);
   });
@@ -86,13 +89,8 @@ describe('MovieForm', () => {
       description: 'Test description',
     };
 
-    render(<MovieForm initialValues={movieDetails} onSubmit={jest.fn()} genres={genres} />);
+    const { asFragment } = render(<MovieForm initialValues={movieDetails} onSubmit={jest.fn()} genres={genres} />);
 
-    expect(screen.getByLabelText('Title')).toHaveValue(movieDetails.title);
-    expect(screen.getByLabelText('Release Date')).toHaveValue(movieDetails.releaseDate);
-    expect(screen.getByLabelText('Image Url')).toHaveValue(movieDetails.imageUrl);
-    expect(screen.getByLabelText('Rating')).toHaveValue(movieDetails.rating);
-    expect(screen.getByLabelText('Runtime')).toHaveValue(movieDetails.runtime);
-    expect(screen.getByLabelText('Description')).toHaveValue(movieDetails.description);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

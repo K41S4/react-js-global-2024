@@ -10,21 +10,12 @@
   margin-right: 20px;
 }
 
-.formGroup label {
+.label {
   margin-bottom: 5px;
   color: #f65261;
 }
 
-.formGroup input {
-  padding: 10px;
-  margin-bottom: 20px;
-  background-color: #424242;
-  border: none;
-  border-radius: 2px;
-  color: #ffffff;
-}
-
-.formGroup select {
+.select {
   padding: 10px;
   margin-bottom: 20px;
   background-color: #424242;

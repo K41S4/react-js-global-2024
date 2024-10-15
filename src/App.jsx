@@ -13,6 +13,7 @@ import { MovieForm } from './Components/MovieForm/MovieForm';
 export function App() {
   const [selectedGenre, setSelectedGenre] = useState('All');
   const genres = ['All', 'Comedy', 'Horror', 'Crime'];
+  const formGenres = ['Comedy', 'Horror', 'Crime'];
 
   const [selectSortOptions, setSelectedSortOption] = useState(sortOptions[0].value);
 
@@ -57,7 +58,7 @@ export function App() {
         <button onClick={() => setIsDialogOpen(true)}>Open dialog</button>
         {isDialogOpen && (
           <Dialog title={'Title'} onClose={() => setIsDialogOpen(false)}>
-            <MovieForm genres={genres} onSubmit={() => {}} />
+            <MovieForm genres={formGenres} onSubmit={(value) => console.log(value)} />
           </Dialog>
         )}
       </div>
