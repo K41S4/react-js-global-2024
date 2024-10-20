@@ -1,13 +1,13 @@
 .formRow {
   display: flex;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
   flex: 1;
-  margin-right: 20px;
 }
 
 .label {
@@ -25,6 +25,7 @@
 }
 
 .overviewTextarea {
+  max-width: 100%;
   background-color: #424242;
   color: #ffffff;
   border: none;

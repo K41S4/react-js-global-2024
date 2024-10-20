@@ -5,19 +5,19 @@ import { Dialog } from '../Dialog';
 describe('Dialog', () => {
   test('renders all details', () => {
     const title = 'Title test';
-    const children = 'children test';
+    const childButtonText = 'children test';
 
     render(
       <Dialog title={title} onClose={jest.fn()}>
-        <button>{children}</button>
+        <button>{childButtonText}</button>
       </Dialog>
     );
 
     expect(screen.getByText(title)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: children })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: childButtonText })).toBeInTheDocument();
   });
 
-  test('handles close event with calling callback', async () => {
+  test('calls close callback on close button click', async () => {
     const user = userEvent.setup();
     const onCloseMock = jest.fn();
 

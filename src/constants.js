@@ -95,4 +95,4 @@ export const sortOptions = [
   { value: 'title', label: 'Title' },
 ];
 
-export const genreConnector = ' & ';
+export const GENRE_CONNECTOR = ' & ';

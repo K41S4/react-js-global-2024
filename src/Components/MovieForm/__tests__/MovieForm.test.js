@@ -14,8 +14,9 @@ describe('MovieForm', () => {
       runtime: '1h',
       description: 'Test description',
     };
+    const mockSubmit = jest.fn();
 
-    render(<MovieForm onSubmit={jest.fn()} genres={['Action']} />);
+    render(<MovieForm onSubmit={mockSubmit} genres={['Action']} />);
 
     const titleInput = screen.getByLabelText('Title');
     const releaseDateInput = screen.getByLabelText('Release Date');
@@ -33,26 +34,21 @@ describe('MovieForm', () => {
     await user.type(runtimeInput, movieDetails.runtime);
     await user.type(descriptionTextarea, movieDetails.description);
 
-    expect(titleInput).toHaveValue(movieDetails.title);
-    expect(releaseDateInput).toHaveValue(movieDetails.releaseDate);
-    expect(imageUrlInput).toHaveValue(movieDetails.imageUrl);
-    expect(ratingInput).toHaveValue(movieDetails.rating);
-    expect(genreInput).toHaveValue(movieDetails.genre);
-    expect(runtimeInput).toHaveValue(movieDetails.runtime);
-    expect(descriptionTextarea).toHaveValue(movieDetails.description);
+    await user.click(screen.getByRole('button', { name: 'Submit' }));
+
+    expect(mockSubmit).toHaveBeenCalledWith(movieDetails);
   });
 
-  it('handles submit event with correct values', async () => {
+  it('handles submit event with default values', async () => {
     const user = userEvent.setup();
     const mockSubmit = jest.fn();
-    const title = 'test title';
+
     render(<MovieForm onSubmit={mockSubmit} genres={['']} />);
 
-    await user.type(screen.getByLabelText('Title'), title);
     await user.click(screen.getByRole('button', { name: 'Submit' }));
 
     expect(mockSubmit).toHaveBeenCalledWith({
-      title: title,
+      title: '',
       releaseDate: '',
       imageUrl: '',
       rating: '',
@@ -78,6 +74,8 @@ describe('MovieForm', () => {
 
   it('sets initial form values', async () => {
     const genres = ['Action', 'Drama', 'Comedy'];
+    const user = userEvent.setup();
+    const mockSubmit = jest.fn();
 
     const movieDetails = {
       title: 'Test title',
@@ -89,8 +87,9 @@ describe('MovieForm', () => {
       description: 'Test description',
     };
 
-    const { asFragment } = render(<MovieForm initialValues={movieDetails} onSubmit={jest.fn()} genres={genres} />);
+    render(<MovieForm initialValues={movieDetails} onSubmit={mockSubmit} genres={genres} />);
+    await user.click(screen.getByRole('button', { name: 'Submit' }));
 
-    expect(asFragment()).toMatchSnapshot();
+    expect(mockSubmit).toHaveBeenCalledWith(movieDetails);
   });
 });

@@ -2,12 +2,22 @@ import { fn } from '@storybook/test';
 
 import { MovieForm } from '../../Components/MovieForm/MovieForm';
 import { Dialog } from '../../Components/Dialog/Dialog';
+import { useState } from 'react';
 
-const EditMovie = ({ movie, onSubmit, onClose, genres }) => (
-  <Dialog title={'Add movie'} onClose={onClose}>
-    <MovieForm initialValues={movie} onSubmit={onSubmit} genres={genres} />
-  </Dialog>
-);
+const EditMovie = ({ movie, onSubmit, genres }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  return (
+    <div>
+      <button onClick={() => setIsDialogOpen(true)}>Open dialog</button>
+      {isDialogOpen && (
+        <Dialog title="Edit movie" onClose={() => setIsDialogOpen(false)}>
+          <MovieForm initialValues={movie} onSubmit={onSubmit} genres={genres} />
+        </Dialog>
+      )}
+    </div>
+  );
+};
 
 export default {
   title: 'Composition/EditMovie',
@@ -20,7 +30,6 @@ export default {
   tags: ['autodocs'],
   args: {
     onSubmit: fn(),
-    onClose: fn(),
   },
 };
 

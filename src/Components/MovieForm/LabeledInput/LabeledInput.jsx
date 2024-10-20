@@ -1,4 +1,4 @@
-import styles from './MovieForm.module.css';
+import styles from './LabeledInput.module.css';
 
 export const LabeledInput = ({ label, value, onChange, id, type = 'text' }) => {
   return (
