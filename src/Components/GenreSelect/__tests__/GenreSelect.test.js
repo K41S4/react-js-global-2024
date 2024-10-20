@@ -7,7 +7,7 @@ describe('GenreSelect', () => {
   test('renders all genres', () => {
     const genres = ['test1', 'test2', 'test3'];
 
-    render(<GenreSelect allGenres={genres} selectedGenre={'test1'} onSelect={jest.fn()} />);
+    render(<GenreSelect allGenres={genres} selectedGenre="test1" onSelect={jest.fn()} />);
 
     genres.forEach((genre) => {
       expect(screen.getByRole('button', { name: genre })).toBeInTheDocument();
@@ -31,7 +31,7 @@ describe('GenreSelect', () => {
     const user = userEvent.setup();
     const onSelectMock = jest.fn();
     const genreToSelect = 'test2';
-    render(<GenreSelect allGenres={['test1', 'test2', 'test3']} selectedGenre={'test1'} onSelect={onSelectMock} />);
+    render(<GenreSelect allGenres={['test1', 'test2', 'test3']} selectedGenre="test1" onSelect={onSelectMock} />);
 
     await user.click(screen.getByRole('button', { name: genreToSelect }));
 

@@ -1,0 +1,11 @@
+.confirmationText {
+  margin-bottom: 5px;
+  color: #ffffff;
+}
+
+.confirmButton {
+  background-color: #f65261;
+  color: #ffffff;
+  border: none;
+  padding: 10px 40px;
+}

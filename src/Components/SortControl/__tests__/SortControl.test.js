@@ -5,7 +5,7 @@ import { sortOptions } from '../../../constants';
 
 describe('SortControl', () => {
   test('renders all options', () => {
-    render(<SortControl selectedOption={''} onSelect={jest.fn()} />);
+    render(<SortControl selectedOption="" onSelect={jest.fn()} />);
 
     expect(screen.getAllByRole('option')).toHaveLength(sortOptions.length);
 
@@ -26,7 +26,7 @@ describe('SortControl', () => {
     const user = userEvent.setup();
     const onSelectMock = jest.fn();
 
-    render(<SortControl selectedOption={'releaseDate'} onSelect={onSelectMock} />);
+    render(<SortControl selectedOption="releaseDate" onSelect={onSelectMock} />);
 
     await user.selectOptions(screen.getByRole('combobox'), 'title');
     expect(onSelectMock).toHaveBeenCalledWith('title');
