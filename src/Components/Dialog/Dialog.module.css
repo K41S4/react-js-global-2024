@@ -21,15 +21,9 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.modalHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
 .title {
-  margin: 0;
+  margin-bottom: 20px;
+  margin-top: 0;
   color: #fff;
   font-size: 24px;
 }

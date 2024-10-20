@@ -57,7 +57,7 @@ export function App() {
       <div>
         <button onClick={() => setIsDialogOpen(true)}>Open dialog</button>
         {isDialogOpen && (
-          <Dialog title={'Title'} onClose={() => setIsDialogOpen(false)}>
+          <Dialog title="Title" onClose={() => setIsDialogOpen(false)}>
             <MovieForm genres={formGenres} onSubmit={(value) => console.log(value)} />
           </Dialog>
         )}

@@ -8,12 +8,10 @@ export const Dialog = ({ children, title, onClose }) => {
       <FocusTrap>
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
-            <div className={styles.modalHeader}>
-              <h2 className={styles.title}>{title}</h2>
-              <button className={styles.closeButton} id="close" onClick={onClose}>
-                x
-              </button>
-            </div>
+            <h2 className={styles.title}>{title}</h2>
+            <button className={styles.closeButton} id="close" onClick={onClose}>
+              x
+            </button>
             <div className={styles.modalBody}>{children}</div>
           </div>
         </div>

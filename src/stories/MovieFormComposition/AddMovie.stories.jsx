@@ -2,12 +2,22 @@ import { fn } from '@storybook/test';
 
 import { MovieForm } from '../../Components/MovieForm/MovieForm';
 import { Dialog } from '../../Components/Dialog/Dialog';
+import { useState } from 'react';
 
-const AddMovie = ({ movie, onSubmit, onClose, genres }) => (
-  <Dialog title={'Add movie'} onClose={onClose}>
-    <MovieForm initialValues={movie} onSubmit={onSubmit} genres={genres} />
-  </Dialog>
-);
+const AddMovie = ({ onSubmit, genres }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  return (
+    <div>
+      <button onClick={() => setIsDialogOpen(true)}>Open dialog</button>
+      {isDialogOpen && (
+        <Dialog title="Add movie" onClose={() => setIsDialogOpen(false)}>
+          <MovieForm onSubmit={onSubmit} genres={genres} />
+        </Dialog>
+      )}
+    </div>
+  );
+};
 
 export default {
   title: 'Composition/AddMovie',
@@ -20,21 +30,11 @@ export default {
   tags: ['autodocs'],
   args: {
     onSubmit: fn(),
-    onClose: fn(),
   },
 };
 
 export const AddMovieStory = {
   args: {
     genres: ['Horror', 'Crime'],
-    movie: {
-      title: '',
-      releaseDate: '',
-      imageUrl: '',
-      rating: '',
-      genre: '',
-      runtime: '',
-      description: '',
-    },
   },
 };
