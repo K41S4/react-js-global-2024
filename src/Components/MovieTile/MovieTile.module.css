@@ -1,0 +1,45 @@
+.container {
+  width: 250px;
+  color: white;
+  background-color: transparent;
+  overflow: hidden;
+  font-weight: 100;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.image {
+  width: 100%;
+  display: block;
+}
+
+.movieName {
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.detailsContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.releaseYear {
+  display: inline-block;
+  width: 66px;
+  height: 26px;
+  line-height: 26px;
+  border-radius: 10%;
+  border: 1px solid #979797;
+  text-align: center;
+  font-size: 14px;
+  background-color: transparent;
+}
+
+.relevantGenres {
+  font-size: 14px;
+  color: #979797;
+  padding: 8px;
+}

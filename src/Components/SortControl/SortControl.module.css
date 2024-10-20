@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.selectLabel {
+  color: #979797;
+  margin-right: 10px;
+}
+
+.select {
+  font-size: 16px;
+  color: white;
+  background-color: transparent;
+  border: none;
+}
+
+.option {
+  background-color: #333;
+}
