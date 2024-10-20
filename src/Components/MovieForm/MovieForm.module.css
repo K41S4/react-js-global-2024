@@ -25,7 +25,7 @@
 }
 
 .overviewTextarea {
-  max-width: 100%;
+  max-width: calc(100% - 20px);
   background-color: #424242;
   color: #ffffff;
   border: none;
