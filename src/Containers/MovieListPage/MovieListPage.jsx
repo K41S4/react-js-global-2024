@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import { GenreSelect } from '../../Components/GenreSelect/GenreSelect';
 import { SearchForm } from '../../Components/SearchForm/SearchForm';
-import { sortOptions, moviesDummy } from '../../constants';
+import { sortOptions } from '../../constants';
 import { MovieDetails } from '../../Components/MovieDetails/MovieDetails';
 import { MovieTile } from '../../Components/MovieTile/MovieTile';
 import { SortControl } from '../../Components/SortControl/SortControl';
 import { Dialog } from '../../Components/Dialog/Dialog';
 import { MovieForm } from '../../Components/MovieForm/MovieForm';
 import styles from './MovieListPage.module.css';
-import axios from 'axios';
+import { fetchMovies } from '../../requests/requests';
 
 export function MovieListPage() {
   const [selectedGenre, setSelectedGenre] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSortOption, setSelectedSortOption] = useState(sortOptions[0].value);
-  const [movies, setMovies] = useState(moviesDummy);
+  const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState();
   const genres = ['All', 'Comedy', 'Horror', 'Crime'];
 
@@ -24,34 +24,8 @@ export function MovieListPage() {
     const controller = new AbortController();
 
     const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:4000/movies`, {
-          params: {
-            searchBy: 'title',
-            search: searchQuery,
-            sortBy: selectedSortOption,
-            sortOrder: 'asc',
-            filter: selectedGenre === 'All' ? '' : selectedGenre,
-          },
-          signal: controller.signal,
-        });
-
-        const mappedMovies = response.data.data.map((data) => ({
-          movieName: data.title,
-          rating: data.vote_average,
-          imageUrl: data.poster_path,
-          releaseYear: data.release_date,
-          duration: data.runtime,
-          description: data.overview,
-          genres: data.genres,
-        }));
-
-        setMovies(mappedMovies);
-      } catch (error) {
-        if (!axios.isCancel(error)) {
-          console.error('Axios fetch error:', error);
-        }
-      }
+      const movies = await fetchMovies(searchQuery, selectedSortOption, selectedGenre, controller);
+      setMovies(movies);
     };
 
     fetchData();
@@ -110,7 +84,7 @@ export function MovieListPage() {
       </div>
 
       {isAddMovieDialogOpen && (
-        <Dialog title={'Add movie'} onClose={() => setIsAddMovieDialogOpen(false)}>
+        <Dialog title="Add movie" onClose={() => setIsAddMovieDialogOpen(false)}>
           <MovieForm genres={genres} onSubmit={(value) => console.log(value)} />
         </Dialog>
       )}
