@@ -14,13 +14,8 @@ const defaultMovieValues = {
 
 export const MovieForm = ({ initialValues = defaultMovieValues, onSubmit, genres }) => {
   const [movie, setMovie] = useState({
-    title: initialValues.title ?? '',
-    releaseDate: initialValues.releaseDate ?? '',
-    imageUrl: initialValues.imageUrl ?? '',
-    rating: initialValues.rating ?? '',
-    genre: initialValues.genre ?? '',
-    runtime: initialValues.runtime ?? '',
-    description: initialValues.description ?? '',
+    ...defaultMovieValues,
+    ...initialValues,
   });
 
   const handleChange = (e) => {
