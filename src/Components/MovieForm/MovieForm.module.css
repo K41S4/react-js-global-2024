@@ -1,0 +1,56 @@
+.formRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.label {
+  margin-bottom: 5px;
+  color: #f65261;
+}
+
+.select {
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #424242;
+  border: none;
+  border-radius: 2px;
+  color: #ffffff;
+}
+
+.overviewTextarea {
+  max-width: calc(100% - 20px);
+  background-color: #424242;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.formActions {
+  display: flex;
+  justify-content: end;
+}
+
+.resetButton {
+  background-color: #232323;
+  color: #f65261;
+  border-color: #f65261;
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px 40px;
+  margin-right: 20px;
+}
+
+.submitButton {
+  background-color: #f65261;
+  color: #ffffff;
+  border: none;
+  padding: 10px 40px;
+}
