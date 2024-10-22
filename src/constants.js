@@ -11,7 +11,7 @@ export const movieData = {
 };
 
 export const sortOptions = [
-  { value: 'releaseDate', label: 'Release Date' },
+  { value: 'release_date', label: 'Release Date' },
   { value: 'title', label: 'Title' },
 ];
 
