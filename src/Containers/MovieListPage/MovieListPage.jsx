@@ -1,77 +1,71 @@
-import { useState } from 'react';
 import { GenreSelect } from '../../Components/GenreSelect/GenreSelect';
-import { SearchForm } from '../../Components/SearchForm/SearchForm';
 import { genres, sortOptions } from '../../constants';
-import { MovieDetails } from '../../Components/MovieDetails/MovieDetails';
 import { MovieTile } from '../../Components/MovieTile/MovieTile';
 import { SortControl } from '../../Components/SortControl/SortControl';
-import { Dialog } from '../../Components/Dialog/Dialog';
-import { MovieForm } from '../../Components/MovieForm/MovieForm';
 import styles from './MovieListPage.module.css';
-import { useFetchMovies } from '../../customHooks/movies';
+import { useFetchMovies } from '../../customHooks/moviesHooks';
+import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
+
+const defaultQuery = {
+  search: '',
+  genre: genres[0],
+  sortBy: sortOptions[0].value,
+};
 
 export function MovieListPage() {
-  const [selectedGenre, setSelectedGenre] = useState(genres[0]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedSortOption, setSelectedSortOption] = useState(sortOptions[0].value);
-  const [selectedMovie, setSelectedMovie] = useState();
+  const [searchParams, setSearchParams] = useSearchParams(defaultQuery);
+  const navigate = useNavigate();
 
-  const [isAddMovieDialogOpen, setIsAddMovieDialogOpen] = useState(false);
-  const movies = useFetchMovies(searchQuery, selectedSortOption, selectedGenre);
+  const movies = useFetchMovies(searchParams.get('search'), searchParams.get('sortBy'), searchParams.get('genre'));
+
+  const handleMovieSelect = (movieId) => {
+    navigate(`/${movieId}?${searchParams.toString()}`);
+  };
 
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.headerTile}>
-        {selectedMovie ? (
-          <>
-            <MovieDetails
-              imageUrl={selectedMovie.imageUrl}
-              movieName={selectedMovie.movieName}
-              releaseYear={selectedMovie.releaseYear}
-              rating={selectedMovie.rating}
-              duration={selectedMovie.duration}
-              description={selectedMovie.description}
-            />
-            <button className={styles.headerButton} onClick={() => setSelectedMovie(null)}>
-              Search
-            </button>
-          </>
-        ) : (
-          <>
-            <SearchForm initialSearchQuery={searchQuery} onSearch={(value) => setSearchQuery(value)} />
-            <button className={styles.headerButton} onClick={() => setIsAddMovieDialogOpen(true)}>
-              Add movie
-            </button>
-          </>
-        )}
+        <Outlet />
       </div>
 
       <div className={styles.movieListTile}>
         <div className={styles.filters}>
-          <GenreSelect allGenres={genres} selectedGenre={selectedGenre} onSelect={(genre) => setSelectedGenre(genre)} />
-          <SortControl selectedOption={selectedSortOption} onSelect={(value) => setSelectedSortOption(value)} />
+          <GenreSelect
+            allGenres={genres}
+            selectedGenre={searchParams.get('genre')}
+            onSelect={(genre) =>
+              setSearchParams((params) => {
+                params.set('genre', genre);
+                return params;
+              })
+            }
+          />
+          <SortControl
+            selectedOption={searchParams.get('sortBy')}
+            onSelect={(value) =>
+              setSearchParams((params) => {
+                params.set('sortBy', value);
+                return params;
+              })
+            }
+          />
         </div>
 
         <div className={styles.movieList}>
           {!!movies?.length &&
             movies.map((movieData) => (
               <MovieTile
-                key={movieData.movieName + movieData.releaseYear}
+                key={movieData.movieId}
+                id={movieData.movieId}
                 imageUrl={movieData.imageUrl}
                 movieName={movieData.movieName}
                 releaseYear={movieData.releaseYear}
                 relevantGenres={movieData.genres}
-                onClick={() => setSelectedMovie(movies.find((movie) => movie.movieName === movieData.movieName))}
+                onClick={() => handleMovieSelect(movieData.movieId)}
               />
             ))}
         </div>
       </div>
-
-      {isAddMovieDialogOpen && (
-        <Dialog title="Add movie" onClose={() => setIsAddMovieDialogOpen(false)}>
-          <MovieForm genres={genres} onSubmit={(value) => console.log(value)} />
-        </Dialog>
-      )}
     </div>
   );
 }
