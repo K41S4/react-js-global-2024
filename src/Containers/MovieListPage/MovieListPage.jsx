@@ -1,39 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { GenreSelect } from '../../Components/GenreSelect/GenreSelect';
 import { SearchForm } from '../../Components/SearchForm/SearchForm';
-import { sortOptions } from '../../constants';
+import { genres, sortOptions } from '../../constants';
 import { MovieDetails } from '../../Components/MovieDetails/MovieDetails';
 import { MovieTile } from '../../Components/MovieTile/MovieTile';
 import { SortControl } from '../../Components/SortControl/SortControl';
 import { Dialog } from '../../Components/Dialog/Dialog';
 import { MovieForm } from '../../Components/MovieForm/MovieForm';
 import styles from './MovieListPage.module.css';
-import { fetchMovies } from '../../requests/requests';
+import { useFetchMovies } from '../../customHooks/movies';
 
 export function MovieListPage() {
-  const [selectedGenre, setSelectedGenre] = useState('All');
+  const [selectedGenre, setSelectedGenre] = useState(genres[0]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSortOption, setSelectedSortOption] = useState(sortOptions[0].value);
-  const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState();
-  const genres = ['All', 'Comedy', 'Horror', 'Crime'];
 
   const [isAddMovieDialogOpen, setIsAddMovieDialogOpen] = useState(false);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const fetchData = async () => {
-      const movies = await fetchMovies(searchQuery, selectedSortOption, selectedGenre, controller);
-      setMovies(movies);
-    };
-
-    fetchData();
-
-    return () => {
-      controller.abort();
-    };
-  }, [searchQuery, selectedSortOption, selectedGenre, setMovies]);
+  const movies = useFetchMovies(searchQuery, selectedSortOption, selectedGenre);
 
   return (
     <div>
@@ -54,7 +38,7 @@ export function MovieListPage() {
           </>
         ) : (
           <>
-            <SearchForm initialSearchQuery="" onSearch={(value) => setSearchQuery(value)} />
+            <SearchForm initialSearchQuery={searchQuery} onSearch={(value) => setSearchQuery(value)} />
             <button className={styles.headerButton} onClick={() => setIsAddMovieDialogOpen(true)}>
               Add movie
             </button>

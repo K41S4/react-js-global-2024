@@ -16,3 +16,5 @@ export const sortOptions = [
 ];
 
 export const GENRE_CONNECTOR = ' & ';
+
+export const genres = ['All', 'Comedy', 'Horror', 'Crime'];

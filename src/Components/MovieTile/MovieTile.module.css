@@ -15,8 +15,6 @@
 
 .movieName {
   font-size: 18px;
-  white-space: normal;
-  overflow: visible;
   display: inline-block;
 }
 
