@@ -2,61 +2,71 @@
 
 exports[`MovieTile renders all details 1`] = `
 <DocumentFragment>
-  <div
-    class="container"
+  <a
+    class="link"
+    href="/123"
   >
-    <img
-      alt=""
-      class="image"
-      src="imageUrl"
-    />
     <div
-      class="detailsContainer"
+      class="container"
     >
+      <img
+        alt=""
+        class="image"
+        src="imageUrl"
+      />
       <div
-        class="movieName"
+        class="detailsContainer"
       >
-        testName
+        <div
+          class="movieName"
+        >
+          testName
+        </div>
+        <div
+          class="releaseYear"
+        >
+          testYear
+        </div>
       </div>
       <div
-        class="releaseYear"
+        class="relevantGenres"
       >
-        testYear
+        genre1 & genre2
       </div>
     </div>
-    <div
-      class="relevantGenres"
-    >
-      genre1 & genre2
-    </div>
-  </div>
+  </a>
 </DocumentFragment>
 `;
 
 exports[`MovieTile renders with required props 1`] = `
 <DocumentFragment>
-  <div
-    class="container"
+  <a
+    class="link"
+    href="/123"
   >
-    <img
-      alt=""
-      class="image"
-      src="imageUrl"
-    />
     <div
-      class="detailsContainer"
+      class="container"
     >
+      <img
+        alt=""
+        class="image"
+        src="imageUrl"
+      />
       <div
-        class="movieName"
+        class="detailsContainer"
       >
-        testName
-      </div>
-      <div
-        class="releaseYear"
-      >
-        testYear
+        <div
+          class="movieName"
+        >
+          testName
+        </div>
+        <div
+          class="releaseYear"
+        >
+          testYear
+        </div>
       </div>
     </div>
-  </div>
+  </a>
 </DocumentFragment>
 `;

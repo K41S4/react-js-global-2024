@@ -1,0 +1,11 @@
+.headerButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: #f65261;
+  color: #ffffff;
+  border: none;
+  padding: 10px 40px;
+}
