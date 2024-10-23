@@ -31,7 +31,7 @@ describe('MovieTile', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('calls onClick callback on container click', async () => {
+  test('navigates to movie id url on container click', async () => {
     const defaultProps = {
       id: '123',
       imageUrl: 'imageUrl',

@@ -4,7 +4,7 @@ import { MovieTile } from '../../Components/MovieTile/MovieTile';
 import { SortControl } from '../../Components/SortControl/SortControl';
 import styles from './MovieListPage.module.css';
 import { useFetchMovies } from '../../customHooks/moviesHooks';
-import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
 const defaultQuery = {
   search: '',
@@ -14,13 +14,7 @@ const defaultQuery = {
 
 export function MovieListPage() {
   const [searchParams, setSearchParams] = useSearchParams(defaultQuery);
-  const navigate = useNavigate();
-
   const movies = useFetchMovies(searchParams.get('search'), searchParams.get('sortBy'), searchParams.get('genre'));
-
-  const handleMovieSelect = (movieId) => {
-    navigate(`/${movieId}?${searchParams.toString()}`);
-  };
 
   return (
     <div className={styles.container}>
@@ -61,7 +55,6 @@ export function MovieListPage() {
                 movieName={movieData.movieName}
                 releaseYear={movieData.releaseYear}
                 relevantGenres={movieData.genres}
-                onClick={() => handleMovieSelect(movieData.movieId)}
               />
             ))}
         </div>
