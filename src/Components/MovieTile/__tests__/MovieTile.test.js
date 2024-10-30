@@ -8,7 +8,7 @@ describe('MovieTile', () => {
     const testData = {
       id: '123',
       imageUrl: 'imageUrl',
-      movieName: 'testName',
+      title: 'testName',
       releaseYear: 'testYear',
       relevantGenres: ['genre1', 'genre2'],
     };
@@ -22,7 +22,7 @@ describe('MovieTile', () => {
     const testData = {
       id: '123',
       imageUrl: 'imageUrl',
-      movieName: 'testName',
+      title: 'testName',
       releaseYear: 'testYear',
     };
 
@@ -35,7 +35,7 @@ describe('MovieTile', () => {
     const defaultProps = {
       id: '123',
       imageUrl: 'imageUrl',
-      movieName: 'testName',
+      title: 'testName',
       releaseYear: 'testYear',
       relevantGenres: ['genre1', 'genre2'],
     };

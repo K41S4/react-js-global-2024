@@ -7,7 +7,7 @@ describe('MovieForm', () => {
     const user = userEvent.setup();
     const movieDetails = {
       title: 'Test title',
-      releaseDate: '1999',
+      releaseYear: '1999',
       imageUrl: 'http://image',
       rating: '9',
       genre: 'Action',
@@ -19,7 +19,7 @@ describe('MovieForm', () => {
     render(<MovieForm onSubmit={mockSubmit} genres={['Action']} />);
 
     const titleInput = screen.getByLabelText('Title');
-    const releaseDateInput = screen.getByLabelText('Release Date');
+    const releaseYearInput = screen.getByLabelText('Release Date');
     const imageUrlInput = screen.getByLabelText('Image Url');
     const ratingInput = screen.getByLabelText('Rating');
     const genreInput = screen.getByLabelText('Genre');
@@ -27,7 +27,7 @@ describe('MovieForm', () => {
     const descriptionTextarea = screen.getByLabelText('Description');
 
     await user.type(titleInput, movieDetails.title);
-    await user.type(releaseDateInput, movieDetails.releaseDate);
+    await user.type(releaseYearInput, movieDetails.releaseYear);
     await user.type(imageUrlInput, movieDetails.imageUrl);
     await user.type(ratingInput, movieDetails.rating);
     await user.selectOptions(genreInput, movieDetails.genre);
@@ -49,7 +49,7 @@ describe('MovieForm', () => {
 
     expect(mockSubmit).toHaveBeenCalledWith({
       title: '',
-      releaseDate: '',
+      releaseYear: '',
       imageUrl: '',
       rating: '',
       genre: '',
@@ -79,7 +79,7 @@ describe('MovieForm', () => {
 
     const movieDetails = {
       title: 'Test title',
-      releaseDate: '1999',
+      releaseYear: '1999',
       imageUrl: 'http://image',
       rating: '9',
       genre: 'Action',

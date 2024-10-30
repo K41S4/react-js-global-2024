@@ -34,14 +34,43 @@ export const fetchMovie = async (movieId) => {
   return mappedMovie;
 };
 
+export const createMovie = async (params) => {
+  const response = await api.post('/movies', {
+    title: params.title,
+    vote_average: Number(params.rating),
+    release_date: params.releaseYear,
+    poster_path: params.imageUrl,
+    overview: params.description,
+    runtime: Number(params.runtime),
+    genres: [params.genre],
+  });
+
+  return response.data.id;
+};
+
+export const updateMovie = async (params) => {
+  const response = await api.put('/movies', {
+    id: Number(params.id),
+    title: params.title,
+    vote_average: Number(params.rating),
+    release_date: params.releaseYear,
+    poster_path: params.imageUrl,
+    overview: params.description,
+    runtime: Number(params.runtime),
+    genres: [params.genre],
+  });
+
+  return response.data.id;
+};
+
 export const movieMapper = (data) => {
   return {
-    movieId: data.id,
-    movieName: data.title,
+    id: data.id,
+    title: data.title,
     rating: data.vote_average,
     imageUrl: data.poster_path,
     releaseYear: data.release_date,
-    duration: data.runtime,
+    runtime: data.runtime,
     description: data.overview,
     genres: data.genres,
   };

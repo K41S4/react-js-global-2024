@@ -20,7 +20,7 @@ export const MovieTileDefault = {
   args: {
     imageUrl:
       'https://m.media-amazon.com/images/M/MV5BYTViYTE3ZGQtNDBlMC00ZTAyLTkyODMtZGRiZDg0MjA2YThkXkEyXkFqcGc@._V1_.jpg',
-    movieName: 'Pulp Fiction',
+    title: 'Pulp Fiction',
     releaseYear: '1999',
     relevantGenres: ['Crime', 'Comedy'],
   },

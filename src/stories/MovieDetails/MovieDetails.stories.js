@@ -16,10 +16,10 @@ export const MovieDetailsDefault = {
   args: {
     imageUrl:
       'https://m.media-amazon.com/images/M/MV5BYTViYTE3ZGQtNDBlMC00ZTAyLTkyODMtZGRiZDg0MjA2YThkXkEyXkFqcGc@._V1_.jpg',
-    movieName: 'Pulp Fiction',
+    title: 'Pulp Fiction',
     releaseYear: '1999',
     rating: '9.0',
-    duration: '2h 14min',
+    runtime: '2h 14min',
     description: 'Description',
   },
 };

@@ -5,10 +5,10 @@ describe('MovieDetails', () => {
   test('renders all details', () => {
     const testData = {
       imageUrl: 'imageUrl',
-      movieName: 'testName',
+      title: 'testName',
       releaseYear: 'testYear',
       rating: 'testRating',
-      duration: 'testDuration',
+      runtime: 'testDuration',
       description: 'testDescription',
     };
 

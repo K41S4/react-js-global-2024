@@ -38,7 +38,7 @@ export const EditMovieStory = {
     genres: ['Comedy', 'Horror', 'Crime'],
     movie: {
       title: 'Movie title',
-      releaseDate: '1999',
+      releaseYear: '1999',
       imageUrl: 'https://image.jpg',
       rating: '7.7',
       genre: 'Crime',

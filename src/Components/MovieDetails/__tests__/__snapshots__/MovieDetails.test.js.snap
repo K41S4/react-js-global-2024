@@ -15,7 +15,7 @@ exports[`MovieDetails renders all details 1`] = `
         class="headerContainer"
       >
         <h2
-          class="movieName"
+          class="title"
         >
           testName
         </h2>
@@ -34,7 +34,7 @@ exports[`MovieDetails renders all details 1`] = `
           testYear
         </div>
         <div
-          class="duration"
+          class="runtime"
         >
           testDuration
         </div>

@@ -26,7 +26,7 @@ describe('SortControl', () => {
     const user = userEvent.setup();
     const onSelectMock = jest.fn();
 
-    render(<SortControl selectedOption="releaseDate" onSelect={onSelectMock} />);
+    render(<SortControl selectedOption="releaseYear" onSelect={onSelectMock} />);
 
     await user.selectOptions(screen.getByRole('combobox'), 'title');
     expect(onSelectMock).toHaveBeenCalledWith('title');

@@ -20,7 +20,7 @@
   align-items: center;
 }
 
-.movieName {
+.title {
   font-size: 36px;
   font-weight: 300;
   margin-top: 0;
@@ -34,7 +34,7 @@
 }
 
 .releaseYear,
-.duration {
+.runtime {
   color: #f65261;
   font-size: 18px;
   margin-bottom: 5px;
