@@ -1,0 +1,35 @@
+.headerTile {
+  background-color: #232323;
+  margin: 0px 30px 10px;
+  position: relative;
+}
+
+.movieListTile {
+  background-color: #232323;
+  margin: 0px 30px 10px;
+  padding: 10px 40px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.movieList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.headerButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: #f65261;
+  color: #ffffff;
+  border: none;
+  padding: 10px 40px;
+}
