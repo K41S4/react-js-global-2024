@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './MovieForm.module.css';
 import { LabeledInput } from './LabeledInput/LabeledInput';
+import { formGenres } from '../../constants';
 
 const defaultMovieValues = {
   title: '',
@@ -12,7 +13,7 @@ const defaultMovieValues = {
   description: '',
 };
 
-export const MovieForm = ({ initialValues = defaultMovieValues, onSubmit, genres }) => {
+export const MovieForm = ({ initialValues = defaultMovieValues, onSubmit }) => {
   const [movie, setMovie] = useState({
     ...defaultMovieValues,
     ...initialValues,
@@ -59,10 +60,10 @@ export const MovieForm = ({ initialValues = defaultMovieValues, onSubmit, genres
           </label>
           <select className={styles.select} id="genres" name="genre" defaultValue={movie.genre}>
             <option hidden />
-            {!!genres?.length &&
-              genres.map((genre) => (
-                <option key={genre} value={genre}>
-                  {genre}
+            {!!formGenres?.length &&
+              formGenres.map((genre) => (
+                <option key={genre.value} value={genre.value}>
+                  {genre.label}
                 </option>
               ))}
           </select>

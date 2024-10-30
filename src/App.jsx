@@ -1,8 +1,8 @@
 import { MovieListPage } from './Containers/MovieListPage/MovieListPage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { fetchMovie } from './requests/requests';
-import { SearchFormContainer } from './Containers/SearchFormContainer/SearchFormContainer';
-import { MovieDetailsContainer } from './Containers/MovieDetailsContainer/MovieDetailsContainer';
+import { SearchForm } from './Components/SearchForm/SearchForm';
+import { MovieDetails } from './Components/MovieDetails/MovieDetails';
 
 const router = createBrowserRouter([
   {
@@ -11,12 +11,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <SearchFormContainer />,
+        element: <SearchForm />,
       },
       {
         path: '/:movieId',
-        element: <MovieDetailsContainer />,
-        loader: fetchMovie,
+        element: <MovieDetails />,
+        loader: ({ params }) => fetchMovie(params.movieId),
       },
     ],
   },

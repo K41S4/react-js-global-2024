@@ -1,48 +1,52 @@
 import { GenreSelect } from '../../Components/GenreSelect/GenreSelect';
-import { genres, sortOptions } from '../../constants';
+import { formGenres, qenreParamName, queryParamName, sortParamName } from '../../constants';
 import { MovieTile } from '../../Components/MovieTile/MovieTile';
 import { SortControl } from '../../Components/SortControl/SortControl';
 import styles from './MovieListPage.module.css';
 import { useFetchMovies } from '../../customHooks/moviesHooks';
-import { Outlet, useSearchParams } from 'react-router-dom';
-
-const defaultQuery = {
-  search: '',
-  genre: genres[0],
-  sortBy: sortOptions[0].value,
-};
+import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
+import { Dialog } from '../../Components/Dialog/Dialog';
+import { MovieForm } from '../../Components/MovieForm/MovieForm';
+import { useState } from 'react';
 
 export function MovieListPage() {
-  const [searchParams, setSearchParams] = useSearchParams(defaultQuery);
-  const movies = useFetchMovies(searchParams.get('search'), searchParams.get('sortBy'), searchParams.get('genre'));
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const isMovieIdPath = /^\/\d+\/?$/.test(location.pathname);
+
+  const movies = useFetchMovies(
+    searchParams.get(queryParamName),
+    searchParams.get(sortParamName),
+    searchParams.get(qenreParamName)
+  );
+  const [isAddMovieDialogOpen, setIsAddMovieDialogOpen] = useState(false);
 
   return (
     <div className={styles.container}>
       <div className={styles.headerTile}>
+        {isMovieIdPath ? (
+          <Link className={styles.headerButton} to={`/?${searchParams.toString()}`}>
+            Search
+          </Link>
+        ) : (
+          <>
+            <button className={styles.headerButton} onClick={() => setIsAddMovieDialogOpen(true)}>
+              Add movie
+            </button>
+            {isAddMovieDialogOpen && (
+              <Dialog title="Add movie" onClose={() => setIsAddMovieDialogOpen(false)}>
+                <MovieForm genres={formGenres} onSubmit={(value) => console.log(value)} />
+              </Dialog>
+            )}
+          </>
+        )}
         <Outlet />
       </div>
 
       <div className={styles.movieListTile}>
         <div className={styles.filters}>
-          <GenreSelect
-            allGenres={genres}
-            selectedGenre={searchParams.get('genre')}
-            onSelect={(genre) =>
-              setSearchParams((params) => {
-                params.set('genre', genre);
-                return params;
-              })
-            }
-          />
-          <SortControl
-            selectedOption={searchParams.get('sortBy')}
-            onSelect={(value) =>
-              setSearchParams((params) => {
-                params.set('sortBy', value);
-                return params;
-              })
-            }
-          />
+          <GenreSelect />
+          <SortControl />
         </div>
 
         <div className={styles.movieList}>

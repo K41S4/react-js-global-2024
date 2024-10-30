@@ -34,6 +34,8 @@
   margin-right: 10px;
   background-color: #f65261;
   color: #ffffff;
-  border: none;
   padding: 10px 40px;
+  text-decoration: none;
+  cursor: default;
+  font-size: 14px;
 }

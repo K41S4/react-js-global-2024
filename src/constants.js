@@ -17,4 +17,14 @@ export const sortOptions = [
 
 export const GENRE_CONNECTOR = ' & ';
 
-export const genres = ['All', 'Comedy', 'Horror', 'Crime'];
+export const queryParamName = 'query';
+export const qenreParamName = 'genre';
+export const sortParamName = 'sortBy';
+
+export const formGenres = [
+  { value: 'Comedy', label: 'Comedy' },
+  { value: 'Horror', label: 'Horror' },
+  { value: 'Crime', label: 'Crime' },
+];
+
+export const genres = [{ value: '', label: 'All' }, ...formGenres];
