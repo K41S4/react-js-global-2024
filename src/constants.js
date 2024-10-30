@@ -11,10 +11,8 @@ export const movieData = {
 };
 
 export const sortOptions = [
-  { value: 'release_date', label: 'Release Date' },
+  { value: 'releaseDate', label: 'Release Date' },
   { value: 'title', label: 'Title' },
 ];
 
 export const GENRE_CONNECTOR = ' & ';
-
-export const genres = ['All', 'Comedy', 'Horror', 'Crime'];
