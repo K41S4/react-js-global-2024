@@ -2,12 +2,13 @@
 
 exports[`MovieTile renders all details 1`] = `
 <DocumentFragment>
-  <a
-    class="link"
-    href="/123"
+  <div
+    class="container"
   >
-    <div
-      class="container"
+    <a
+      class="link"
+      data-cy="movie-tile"
+      href="/123"
     >
       <img
         alt=""
@@ -33,19 +34,20 @@ exports[`MovieTile renders all details 1`] = `
       >
         genre1 & genre2
       </div>
-    </div>
-  </a>
+    </a>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`MovieTile renders with required props 1`] = `
 <DocumentFragment>
-  <a
-    class="link"
-    href="/123"
+  <div
+    class="container"
   >
-    <div
-      class="container"
+    <a
+      class="link"
+      data-cy="movie-tile"
+      href="/123"
     >
       <img
         alt=""
@@ -66,7 +68,7 @@ exports[`MovieTile renders with required props 1`] = `
           testYear
         </div>
       </div>
-    </div>
-  </a>
+    </a>
+  </div>
 </DocumentFragment>
 `;

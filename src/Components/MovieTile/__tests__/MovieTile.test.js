@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { MovieTile } from '../MovieTile';
 import userEvent from '@testing-library/user-event';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import { renderWithRouter } from '../../../testUtils';
 
 describe('MovieTile', () => {
   test('renders all details', () => {
@@ -13,7 +14,7 @@ describe('MovieTile', () => {
       relevantGenres: ['genre1', 'genre2'],
     };
 
-    const { asFragment } = render(<MovieTile {...testData} />, { wrapper: BrowserRouter });
+    const { asFragment } = renderWithRouter(<MovieTile {...testData} />);
 
     expect(asFragment()).toMatchSnapshot();
   });
@@ -26,7 +27,7 @@ describe('MovieTile', () => {
       releaseYear: 'testYear',
     };
 
-    const { asFragment } = render(<MovieTile {...testData} />, { wrapper: BrowserRouter });
+    const { asFragment } = renderWithRouter(<MovieTile {...testData} />);
 
     expect(asFragment()).toMatchSnapshot();
   });
@@ -42,16 +43,36 @@ describe('MovieTile', () => {
 
     const user = userEvent.setup();
 
-    const { container } = render(
+    renderWithRouter(
       <Routes>
         <Route path="/" element={<MovieTile {...defaultProps} />} />
         <Route path="/123" element={<h1>Movie Page</h1>} />
-      </Routes>,
-      { wrapper: BrowserRouter }
+      </Routes>
     );
 
-    await user.click(container.firstElementChild);
+    await user.click(screen.getByRole('link'));
 
     expect(screen.getByText('Movie Page')).toBeInTheDocument();
+  });
+
+  test('opens context menu on container right click', async () => {
+    const defaultProps = {
+      id: '123',
+      imageUrl: 'imageUrl',
+      title: 'testName',
+      releaseYear: 'testYear',
+      relevantGenres: ['genre1', 'genre2'],
+    };
+
+    const user = userEvent.setup();
+
+    const { container } = renderWithRouter(<MovieTile {...defaultProps} />);
+
+    await user.pointer(
+      { keys: '[MouseRight]', target: container.firstElementChild },
+      { keys: '[/MouseRight]', target: container.firstElementChild }
+    );
+
+    waitFor(() => expect(screen.getByText('Edit')).toBeInTheDocument());
   });
 });

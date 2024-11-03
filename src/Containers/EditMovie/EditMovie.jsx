@@ -9,16 +9,13 @@ export const EditMovie = () => {
   const movie = useLoaderData();
 
   const handleSubmit = async (movieToUpdate) => {
-    console.log(movie);
     await updateMovie({ ...movieToUpdate, id: movie.id });
     navigate(`/${movie.id}?${searchParams.toString()}`);
   };
 
   return (
-    <>
-      <Dialog title="Edit movie" onClose={() => navigate(`/${movie.id}?${searchParams.toString()}`)}>
-        <MovieForm onSubmit={handleSubmit} initialValues={{ ...movie, genre: movie.genres[0] }} />
-      </Dialog>
-    </>
+    <Dialog title="Edit movie" onClose={() => navigate(`/${movie.id}?${searchParams.toString()}`)}>
+      <MovieForm onSubmit={handleSubmit} initialValues={{ ...movie, genre: movie.genres[0] }} />
+    </Dialog>
   );
 };

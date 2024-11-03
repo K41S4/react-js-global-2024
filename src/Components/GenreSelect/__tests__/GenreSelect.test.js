@@ -1,40 +1,37 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { GenreSelect } from '../GenreSelect';
 import styles from './GenreSelect.module.css';
+import { renderWithRouter } from '../../../testUtils';
+import { MemoryRouter } from 'react-router-dom';
+import { genres } from '../../../constants';
 
 describe('GenreSelect', () => {
   test('renders all genres', () => {
-    const genres = ['test1', 'test2', 'test3'];
-
-    render(<GenreSelect allGenres={genres} selectedGenre="test1" onSelect={jest.fn()} />);
+    renderWithRouter(<GenreSelect />);
 
     genres.forEach((genre) => {
-      expect(screen.getByRole('button', { name: genre })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: genre.label })).toBeInTheDocument();
     });
   });
 
-  test('highlights selected genre', () => {
-    const selectedGenre = 'test1';
-    const onSelectMock = jest.fn();
+  test('highlights selected genre', async () => {
+    const selectedGenre = 'Horror';
+    const newSelectedGenre = 'Comedy';
+    const user = userEvent.setup();
 
     render(
-      <GenreSelect allGenres={['test1', 'test2', 'test3']} selectedGenre={selectedGenre} onSelect={onSelectMock} />
+      <MemoryRouter initialEntries={[`/?genre=${selectedGenre}`]}>
+        <GenreSelect />
+      </MemoryRouter>
     );
 
     const selectedButton = screen.getByRole('button', { name: selectedGenre });
     expect(selectedButton).toHaveClass(styles.selectedButton);
     expect(selectedButton).not.toHaveClass(styles.button);
-  });
 
-  test('calls onSearch callback with proper value on search button click', async () => {
-    const user = userEvent.setup();
-    const onSelectMock = jest.fn();
-    const genreToSelect = 'test2';
-    render(<GenreSelect allGenres={['test1', 'test2', 'test3']} selectedGenre="test1" onSelect={onSelectMock} />);
-
-    await user.click(screen.getByRole('button', { name: genreToSelect }));
-
-    expect(onSelectMock).toHaveBeenCalledWith(genreToSelect);
+    const newSelectedButton = screen.getByRole('button', { name: newSelectedGenre });
+    await user.click(newSelectedButton);
+    await waitFor(() => expect(newSelectedButton).toHaveClass(styles.selectedButton));
   });
 });

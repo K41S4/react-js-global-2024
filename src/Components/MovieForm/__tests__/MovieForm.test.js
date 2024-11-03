@@ -1,22 +1,22 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MovieForm } from '../MovieForm';
 
 describe('MovieForm', () => {
-  it('allows entering values into form fields', async () => {
+  it('submits valid values', async () => {
     const user = userEvent.setup();
     const movieDetails = {
       title: 'Test title',
-      releaseYear: '1999',
+      releaseYear: '1999-12-12',
       imageUrl: 'http://image',
-      rating: '9',
-      genre: 'Action',
-      runtime: '1h',
+      rating: 9,
+      genre: 'Horror',
+      runtime: 123,
       description: 'Test description',
     };
     const mockSubmit = jest.fn();
 
-    render(<MovieForm onSubmit={mockSubmit} genres={['Action']} />);
+    render(<MovieForm onSubmit={mockSubmit} />);
 
     const titleInput = screen.getByLabelText('Title');
     const releaseYearInput = screen.getByLabelText('Release Date');
@@ -29,39 +29,39 @@ describe('MovieForm', () => {
     await user.type(titleInput, movieDetails.title);
     await user.type(releaseYearInput, movieDetails.releaseYear);
     await user.type(imageUrlInput, movieDetails.imageUrl);
-    await user.type(ratingInput, movieDetails.rating);
+    await user.type(ratingInput, movieDetails.rating.toString());
     await user.selectOptions(genreInput, movieDetails.genre);
-    await user.type(runtimeInput, movieDetails.runtime);
+    await user.type(runtimeInput, movieDetails.runtime.toString());
     await user.type(descriptionTextarea, movieDetails.description);
 
     await user.click(screen.getByRole('button', { name: 'Submit' }));
 
-    expect(mockSubmit).toHaveBeenCalledWith(movieDetails);
+    await waitFor(() => expect(mockSubmit).toHaveBeenCalledWith(movieDetails));
   });
 
-  it('handles submit event with default values', async () => {
+  it('shows errors for invalid values', async () => {
     const user = userEvent.setup();
     const mockSubmit = jest.fn();
 
-    render(<MovieForm onSubmit={mockSubmit} genres={['']} />);
+    render(<MovieForm onSubmit={mockSubmit} />);
 
     await user.click(screen.getByRole('button', { name: 'Submit' }));
 
-    expect(mockSubmit).toHaveBeenCalledWith({
-      title: '',
-      releaseYear: '',
-      imageUrl: '',
-      rating: '',
-      genre: '',
-      runtime: '',
-      description: '',
-    });
+    expect(mockSubmit).not.toHaveBeenCalled();
+    const errors = [
+      'Title is required',
+      'Release date is required',
+      'Image URL is required',
+      'Genre is required',
+      'Description is required',
+    ];
+    errors.forEach((error) => expect(screen.getByText(error)).toBeInTheDocument());
   });
 
   it('resets the form when reset button is clicked', async () => {
     const user = userEvent.setup();
 
-    render(<MovieForm onSubmit={jest.fn()} genres={[]} />);
+    render(<MovieForm onSubmit={jest.fn()} />);
 
     const titleInput = screen.getByLabelText('Title');
 
@@ -73,21 +73,20 @@ describe('MovieForm', () => {
   });
 
   it('sets initial form values', async () => {
-    const genres = ['Action', 'Drama', 'Comedy'];
     const user = userEvent.setup();
     const mockSubmit = jest.fn();
 
     const movieDetails = {
       title: 'Test title',
-      releaseYear: '1999',
+      releaseYear: '1999-12-12',
       imageUrl: 'http://image',
-      rating: '9',
-      genre: 'Action',
-      runtime: '1h',
+      rating: 9,
+      genre: 'Horror',
+      runtime: 123,
       description: 'Test description',
     };
 
-    render(<MovieForm initialValues={movieDetails} onSubmit={mockSubmit} genres={genres} />);
+    render(<MovieForm initialValues={movieDetails} onSubmit={mockSubmit} />);
     await user.click(screen.getByRole('button', { name: 'Submit' }));
 
     expect(mockSubmit).toHaveBeenCalledWith(movieDetails);

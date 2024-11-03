@@ -13,10 +13,8 @@ export const AddMovie = () => {
   };
 
   return (
-    <>
-      <Dialog title="Add movie" onClose={() => navigate(`/?${searchParams.toString()}`)}>
-        <MovieForm onSubmit={handleSubmit} />
-      </Dialog>
-    </>
+    <Dialog title="Add movie" onClose={() => navigate(`/?${searchParams.toString()}`)}>
+      <MovieForm onSubmit={handleSubmit} />
+    </Dialog>
   );
 };
