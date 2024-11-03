@@ -3,7 +3,7 @@ import { sortOptions, sortParamName } from '../../constants';
 import styles from './SortControl.module.css';
 
 export const SortControl = () => {
-  const [searchParams, setSearchParams] = useSearchParams({ sortBy: sortOptions[0].value });
+  const [searchParams, setSearchParams] = useSearchParams({ [sortParamName]: sortOptions[0].value });
   const selectedOption = searchParams.get(sortParamName);
 
   const handleSelect = (value) => {
