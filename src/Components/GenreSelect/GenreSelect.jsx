@@ -3,7 +3,7 @@ import { genres, qenreParamName } from '../../constants';
 import styles from './GenreSelect.module.css';
 
 export const GenreSelect = () => {
-  const [searchParams, setSearchParams] = useSearchParams({ genre: genres[0].value });
+  const [searchParams, setSearchParams] = useSearchParams({ [qenreParamName]: genres[0].value });
   const selectedGenre = searchParams.get(qenreParamName);
 
   const handleSelect = (genre) => {

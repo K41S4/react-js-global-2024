@@ -4,12 +4,11 @@ import { MovieTile } from '../../Components/MovieTile/MovieTile';
 import { SortControl } from '../../Components/SortControl/SortControl';
 import styles from './MovieListPage.module.css';
 import { useFetchMovies } from '../../customHooks/moviesHooks';
-import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
+import { Link, Outlet, useMatch, useSearchParams } from 'react-router-dom';
 
 export function MovieListPage() {
   const [searchParams] = useSearchParams();
-  const location = useLocation();
-  const isMovieIdPath = /^\/\d+\/?$/.test(location.pathname);
+  const isMovieIdPath = useMatch('/:movieId');
 
   const movies = useFetchMovies(
     searchParams.get(queryParamName),

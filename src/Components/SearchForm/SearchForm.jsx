@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { queryParamName } from '../../constants';
 
 export const SearchForm = () => {
-  const [searchParams, setSearchParams] = useSearchParams({ query: '' });
+  const [searchParams, setSearchParams] = useSearchParams({ [queryParamName]: '' });
   const [searchValue, setSearchValue] = useState(searchParams.get(queryParamName));
 
   const handleSearch = (value) =>
