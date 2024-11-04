@@ -22,7 +22,7 @@ export const MovieFormDefault = {
     genres: ['All', 'Horror', 'Crime'],
     initialValues: {
       title: '',
-      releaseDate: '',
+      releaseYear: '',
       imageUrl: '',
       rating: '',
       genre: '',

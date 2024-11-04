@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { SortControl } from '../SortControl';
-import userEvent from '@testing-library/user-event';
 import { sortOptions } from '../../../constants';
+import { renderWithRouter } from '../../../testUtils';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('SortControl', () => {
   test('renders all options', () => {
-    render(<SortControl selectedOption="" onSelect={jest.fn()} />);
+    renderWithRouter(<SortControl />);
 
     expect(screen.getAllByRole('option')).toHaveLength(sortOptions.length);
 
@@ -17,18 +18,11 @@ describe('SortControl', () => {
   test('renders selected value', () => {
     const selectedOption = 'title';
 
-    render(<SortControl selectedOption={selectedOption} onSelect={jest.fn()} />);
-
+    render(
+      <MemoryRouter initialEntries={[`/?sortBy=${selectedOption}`]}>
+        <SortControl />
+      </MemoryRouter>
+    );
     expect(screen.getByRole('combobox')).toHaveValue(selectedOption);
-  });
-
-  test('calls callback on option select', async () => {
-    const user = userEvent.setup();
-    const onSelectMock = jest.fn();
-
-    render(<SortControl selectedOption="releaseDate" onSelect={onSelectMock} />);
-
-    await user.selectOptions(screen.getByRole('combobox'), 'title');
-    expect(onSelectMock).toHaveBeenCalledWith('title');
   });
 });

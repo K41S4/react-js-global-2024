@@ -1,13 +1,10 @@
 import { GenreSelect } from '../../Components/GenreSelect/GenreSelect';
-import { formGenres, qenreParamName, queryParamName, sortParamName } from '../../constants';
+import { qenreParamName, queryParamName, sortParamName } from '../../constants';
 import { MovieTile } from '../../Components/MovieTile/MovieTile';
 import { SortControl } from '../../Components/SortControl/SortControl';
 import styles from './MovieListPage.module.css';
 import { useFetchMovies } from '../../customHooks/moviesHooks';
 import { Link, Outlet, useMatch, useSearchParams } from 'react-router-dom';
-import { Dialog } from '../../Components/Dialog/Dialog';
-import { MovieForm } from '../../Components/MovieForm/MovieForm';
-import { useState } from 'react';
 
 export function MovieListPage() {
   const [searchParams] = useSearchParams();
@@ -18,7 +15,6 @@ export function MovieListPage() {
     searchParams.get(sortParamName),
     searchParams.get(qenreParamName)
   );
-  const [isAddMovieDialogOpen, setIsAddMovieDialogOpen] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -28,16 +24,9 @@ export function MovieListPage() {
             Search
           </Link>
         ) : (
-          <>
-            <button className={styles.headerButton} onClick={() => setIsAddMovieDialogOpen(true)}>
-              Add movie
-            </button>
-            {isAddMovieDialogOpen && (
-              <Dialog title="Add movie" onClose={() => setIsAddMovieDialogOpen(false)}>
-                <MovieForm genres={formGenres} onSubmit={(value) => console.log(value)} />
-              </Dialog>
-            )}
-          </>
+          <Link className={styles.headerButton} to={`/new?${searchParams.toString()}`}>
+            Add movie
+          </Link>
         )}
         <Outlet />
       </div>
@@ -52,10 +41,10 @@ export function MovieListPage() {
           {!!movies?.length &&
             movies.map((movieData) => (
               <MovieTile
-                key={movieData.movieId}
-                id={movieData.movieId}
+                key={movieData.id}
+                id={movieData.id}
                 imageUrl={movieData.imageUrl}
-                movieName={movieData.movieName}
+                title={movieData.title}
                 releaseYear={movieData.releaseYear}
                 relevantGenres={movieData.genres}
               />

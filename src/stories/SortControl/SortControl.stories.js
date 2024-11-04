@@ -19,6 +19,6 @@ export default {
 
 export const SortControlDefault = {
   args: {
-    selectedOption: 'releaseDate',
+    selectedOption: 'releaseYear',
   },
 };
