@@ -1,28 +1,23 @@
-import { useSearchParams } from 'react-router-dom';
-import { sortOptions, sortParamName } from '../../constants';
+import { useRouter } from 'next/router';
+import { genreParamName, queryParamName, sortOptions, sortParamName } from '../../constants';
 import styles from './SortControl.module.css';
 
 export const SortControl = () => {
-  const [searchParams, setSearchParams] = useSearchParams({ [sortParamName]: sortOptions[0].value });
-  const selectedOption = searchParams.get(sortParamName);
-
-  const handleSelect = (value) => {
-    setSearchParams((params) => {
-      params.set(sortParamName, value);
-      return params;
-    });
-  };
+  const router = useRouter();
 
   return (
-    <div className={styles.container}>
+    <form action={router.asPath.split('?')[0] ?? ''} method="GET" className={styles.container}>
       <span className={styles.selectLabel}>Sort by</span>
-      <select className={styles.select} value={selectedOption} onChange={(e) => handleSelect(e.target.value)}>
+      <select name={sortParamName} className={styles.select} defaultValue={router.query.sortBy}>
         {sortOptions.map((option) => (
           <option key={option.value} value={option.value} className={styles.option}>
             {option.label}
           </option>
         ))}
       </select>
-    </div>
+      <input type="hidden" name={genreParamName} value={router.query[genreParamName]} />
+      <input type="hidden" name={queryParamName} value={router.query[queryParamName]} />
+      <button type="submit">Submit</button>
+    </form>
   );
 };

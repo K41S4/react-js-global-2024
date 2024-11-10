@@ -14,7 +14,7 @@ export const fetchMovies = async (searchQuery, selectedSortOption, selectedGenre
         sortOrder: 'asc',
         filter: selectedGenre,
       },
-      signal: controller.signal,
+      signal: controller?.signal,
     });
 
     const mappedMovies = response.data.data.map(movieMapper);

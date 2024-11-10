@@ -1,19 +1,18 @@
 import { Dialog } from '../../Components/Dialog/Dialog';
 import { MovieForm } from '../../Components/MovieForm/MovieForm';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import { createMovie } from '../../requests/requests';
+import { useRouter } from 'next/router';
 
 export const AddMovie = () => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
 
   const handleSubmit = async (movie) => {
     const createdMovieId = await createMovie(movie);
-    navigate(`/${createdMovieId}?${searchParams.toString()}`);
+    router.push({ pathname: `/${createdMovieId}`, query: router.query });
   };
 
   return (
-    <Dialog title="Add movie" onClose={() => navigate(`/?${searchParams.toString()}`)}>
+    <Dialog title="Add movie" onClose={() => router.push({ pathname: '/', query: router.query })}>
       <MovieForm onSubmit={handleSubmit} />
     </Dialog>
   );

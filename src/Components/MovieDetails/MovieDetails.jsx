@@ -1,9 +1,6 @@
-import { useLoaderData } from 'react-router-dom';
 import styles from './MovieDetails.module.css';
 
-export const MovieDetails = () => {
-  const movie = useLoaderData();
-
+export const MovieDetails = ({ movie }) => {
   return (
     <div className={styles.container}>
       <img src={movie.imageUrl} alt="" className={styles.image} />

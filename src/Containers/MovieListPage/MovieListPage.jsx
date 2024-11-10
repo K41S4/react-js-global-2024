@@ -1,5 +1,5 @@
 import { GenreSelect } from '../../Components/GenreSelect/GenreSelect';
-import { qenreParamName, queryParamName, sortParamName } from '../../constants';
+import { genreParamName, queryParamName, sortParamName } from '../../constants';
 import { MovieTile } from '../../Components/MovieTile/MovieTile';
 import { SortControl } from '../../Components/SortControl/SortControl';
 import styles from './MovieListPage.module.css';
@@ -13,7 +13,7 @@ export function MovieListPage() {
   const movies = useFetchMovies(
     searchParams.get(queryParamName),
     searchParams.get(sortParamName),
-    searchParams.get(qenreParamName)
+    searchParams.get(genreParamName)
   );
 
   return (

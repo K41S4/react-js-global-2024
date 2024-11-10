@@ -18,7 +18,7 @@ export const sortOptions = [
 export const GENRE_CONNECTOR = ' & ';
 
 export const queryParamName = 'query';
-export const qenreParamName = 'genre';
+export const genreParamName = 'genre';
 export const sortParamName = 'sortBy';
 
 export const formGenres = [
