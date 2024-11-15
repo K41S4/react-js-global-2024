@@ -3,15 +3,15 @@ import { MovieTile } from '../MovieTile/MovieTile';
 import { SortControl } from '../SortControl/SortControl';
 import styles from './Layout.module.css';
 
-export function Layout({ movies, children }) {
+export function Layout({ movies, children, searchParams }) {
   return (
     <div className={styles.container}>
       <div className={styles.headerTile}>{children}</div>
 
       <div className={styles.movieListTile}>
         <div className={styles.filters}>
-          <GenreSelect />
-          <SortControl />
+          <GenreSelect searchParams={searchParams} />
+          <SortControl searchParams={searchParams} />
         </div>
 
         <div className={styles.movieList}>
@@ -24,6 +24,7 @@ export function Layout({ movies, children }) {
                 title={movieData.title}
                 releaseYear={movieData.releaseYear}
                 relevantGenres={movieData.genres}
+                searchParams={searchParams}
               />
             ))}
         </div>

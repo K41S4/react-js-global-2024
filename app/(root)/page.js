@@ -1,19 +1,27 @@
-'use client';
-
 import Link from 'next/link.js';
 import styles from './styles.module.css';
 import { SearchForm } from '../../src/Components/SearchForm/SearchForm';
-import { Suspense } from 'react';
+import { Layout } from '../../src/Components/Layout/Layout';
+import { fetchMovies } from '../../src/requests/requests';
+import { genreParamName, queryParamName, sortParamName } from '../../src/constants';
+import { getSearchParamsString } from '../../src/utils';
 
-export default function MovieListPage({ searchParams }) {
-  const href = `/new?${searchParams.toString()}`;
+export default async function MovieListPage({ searchParams }) {
+  const searchParamsResult = await searchParams;
+  const movies = await fetchMovies(
+    searchParamsResult[queryParamName],
+    searchParamsResult[sortParamName],
+    searchParamsResult[genreParamName]
+  );
+
+  const href = `/new?${getSearchParamsString(searchParamsResult)}`;
 
   return (
-    <Suspense>
+    <Layout movies={movies} searchParams={searchParamsResult}>
       <Link className={styles.headerButton} href={href}>
         Add movie
       </Link>
-      <SearchForm />
-    </Suspense>
+      <SearchForm searchParams={searchParamsResult} />
+    </Layout>
   );
 }

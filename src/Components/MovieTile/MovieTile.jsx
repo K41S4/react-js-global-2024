@@ -1,28 +1,14 @@
 import { GENRE_CONNECTOR } from '../../constants';
+import { getSearchParamsString } from '../../utils';
 import styles from './MovieTile.module.css';
-import { ContextMenu } from '../ContextMenu/ContextMenu';
-import { useState } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 
-export const MovieTile = ({ id, imageUrl, title, releaseYear, relevantGenres }) => {
-  const searchParams = useSearchParams();
-  const href = `/${id}?${searchParams.toString()}`;
-  const [showMenu, setShowMenu] = useState(false);
-
-  const handleOpenMenu = (event) => {
-    event.preventDefault();
-    setShowMenu(true);
-  };
-
-  const handleCloseMenu = (event) => {
-    event.preventDefault();
-    setShowMenu(false);
-  };
+export const MovieTile = async ({ id, imageUrl, title, releaseYear, relevantGenres, searchParams }) => {
+  const href = `/${id}?${getSearchParamsString(searchParams)}`;
 
   return (
     <div className={styles.container}>
-      <Link className={styles.link} href={href} data-cy="movie-tile" onContextMenu={handleOpenMenu}>
+      <Link className={styles.link} href={href} data-cy="movie-tile">
         <img className={styles.image} src={imageUrl} alt="" />
         <div className={styles.detailsContainer}>
           <div className={styles.title}>{title}</div>
@@ -32,7 +18,6 @@ export const MovieTile = ({ id, imageUrl, title, releaseYear, relevantGenres }) 
           <div className={styles.relevantGenres}>{relevantGenres.join(GENRE_CONNECTOR)}</div>
         )}
       </Link>
-      {showMenu && <ContextMenu movieId={id} onClose={handleCloseMenu} />}
     </div>
   );
 };

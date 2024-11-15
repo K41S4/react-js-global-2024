@@ -1,10 +1,7 @@
 import { genres, genreParamName, sortParamName, queryParamName } from '../../constants';
 import styles from './GenreSelect.module.css';
-import { useSearchParams } from 'next/navigation';
 
-export const GenreSelect = () => {
-  const searchParams = useSearchParams();
-
+export const GenreSelect = async ({ searchParams }) => {
   return (
     <form action={''} method="GET" className={styles.container}>
       {genres.map((genre) => (
@@ -13,13 +10,13 @@ export const GenreSelect = () => {
           name={genreParamName}
           value={genre.value}
           key={genre.value}
-          className={genre.value === (searchParams.get(genreParamName) ?? '') ? styles.selectedButton : styles.button}
+          className={genre.value === (searchParams[genreParamName] ?? '') ? styles.selectedButton : styles.button}
         >
           {genre.label}
         </button>
       ))}
-      <input type="hidden" name={sortParamName} value={searchParams.get(sortParamName)} />
-      <input type="hidden" name={queryParamName} value={searchParams.get(queryParamName)} />
+      <input type="hidden" name={sortParamName} value={searchParams[sortParamName]} />
+      <input type="hidden" name={queryParamName} value={searchParams[queryParamName]} />
     </form>
   );
 };

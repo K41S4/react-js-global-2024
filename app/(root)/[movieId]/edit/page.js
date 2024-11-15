@@ -1,18 +1,23 @@
 'use client';
-import { useParams } from 'next/navigation';
 import { MovieDetails } from '../../../../src/Components/MovieDetails/MovieDetails';
 import { EditMovie } from '../../../../src/Containers/EditMovie/EditMovie';
-import { fetchMovie } from '../../../../src/requests/requests';
-import { Suspense } from 'react';
+import { fetchMovie, fetchMovies } from '../../../../src/requests/requests';
+import { Layout } from '../../../../src/Components/Layout/Layout';
+import { genreParamName, queryParamName, sortParamName } from '../../../../src/constants';
 
-export default async function EditMoviePage() {
-  const params = useParams();
-  const movie = await fetchMovie(params.movieId);
+export default async function EditMoviePage({ params, searchParams }) {
+  const searchParamsResult = await searchParams;
+  const movies = await fetchMovies(
+    searchParamsResult[queryParamName],
+    searchParamsResult[sortParamName],
+    searchParamsResult[genreParamName]
+  );
+  const movie = await fetchMovie((await params).movieId);
 
   return (
-    <Suspense>
-      <EditMovie movie={movie} />
+    <Layout movies={movies} searchParams={searchParamsResult}>
+      <EditMovie movie={movie} searchParams={searchParams} />
       <MovieDetails movie={movie} />
-    </Suspense>
+    </Layout>
   );
 }

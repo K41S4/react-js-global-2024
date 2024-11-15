@@ -1,20 +1,28 @@
-'use client';
 import { MovieDetails } from '../../../src/Components/MovieDetails/MovieDetails';
-import { fetchMovie } from '../../../src/requests/requests';
+import { fetchMovie, fetchMovies } from '../../../src/requests/requests';
 import Link from 'next/link';
 import styles from '../styles.module.css';
-import { Suspense } from 'react';
+import { Layout } from '../../../src/Components/Layout/Layout';
+import { genreParamName, queryParamName, sortParamName } from '../../../src/constants';
+import { getSearchParamsString } from '../../../src/utils';
 
 export default async function MovieDetailPage({ params, searchParams }) {
-  const href = `/?${(await searchParams).toString()}`;
+  const searchParamsResult = await searchParams;
+  const movies = await fetchMovies(
+    searchParamsResult[queryParamName],
+    searchParamsResult[sortParamName],
+    searchParamsResult[genreParamName]
+  );
+
+  const href = `/?${getSearchParamsString(await searchParams)}`;
   const movieId = (await params).movieId;
   const movie = await fetchMovie(movieId);
   return (
-    <Suspense>
+    <Layout movies={movies} searchParams={searchParamsResult}>
       <Link className={styles.headerButton} href={href}>
         Search
       </Link>
       <MovieDetails movie={movie} />
-    </Suspense>
+    </Layout>
   );
 }
