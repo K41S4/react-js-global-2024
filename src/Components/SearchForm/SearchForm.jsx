@@ -1,32 +1,12 @@
-import { useState } from 'react';
 import styles from './SearchForm.module.css';
-import { useSearchParams } from 'react-router-dom';
-import { queryParamName } from '../../constants';
+import { genreParamName, queryParamName, sortParamName } from '../../constants';
 
-export const SearchForm = () => {
-  const [searchParams, setSearchParams] = useSearchParams({ [queryParamName]: '' });
-  const [searchValue, setSearchValue] = useState(searchParams.get(queryParamName));
-
-  const handleSearch = (value) =>
-    setSearchParams((params) => {
-      params.set(queryParamName, value);
-      return params;
-    });
-
+export const SearchForm = async ({ searchParams }) => {
   return (
-    <form
-      className={styles.container}
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleSearch(searchValue);
-      }}
-    >
-      <input
-        type="text"
-        onChange={(e) => setSearchValue(e.target.value)}
-        value={searchValue}
-        className={styles.input}
-      />
+    <form action={''} method="GET" className={styles.container}>
+      <input type="text" name={queryParamName} defaultValue={searchParams[queryParamName]} className={styles.input} />
+      <input type="hidden" name={genreParamName} value={searchParams[genreParamName]} />
+      <input type="hidden" name={sortParamName} value={searchParams[sortParamName]} />
       <button className={styles.button}>Search</button>
     </form>
   );

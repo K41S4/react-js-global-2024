@@ -1,30 +1,22 @@
-import { useSearchParams } from 'react-router-dom';
-import { genres, qenreParamName } from '../../constants';
+import { genres, genreParamName, sortParamName, queryParamName } from '../../constants';
 import styles from './GenreSelect.module.css';
 
-export const GenreSelect = () => {
-  const [searchParams, setSearchParams] = useSearchParams({ [qenreParamName]: genres[0].value });
-  const selectedGenre = searchParams.get(qenreParamName);
-
-  const handleSelect = (genre) => {
-    setSearchParams((params) => {
-      params.set(qenreParamName, genre);
-      return params;
-    });
-  };
-
+export const GenreSelect = async ({ searchParams }) => {
   return (
-    <div className={styles.container} data-cy="genre-select">
+    <form action={''} method="GET" className={styles.container}>
       {genres.map((genre) => (
         <button
+          type="submit"
+          name={genreParamName}
+          value={genre.value}
           key={genre.value}
-          onClick={() => handleSelect(genre.value)}
-          className={genre.value === selectedGenre ? styles.selectedButton : styles.button}
-          data-selected={genre.value === selectedGenre}
+          className={genre.value === (searchParams[genreParamName] ?? '') ? styles.selectedButton : styles.button}
         >
           {genre.label}
         </button>
       ))}
-    </div>
+      <input type="hidden" name={sortParamName} value={searchParams[sortParamName]} />
+      <input type="hidden" name={queryParamName} value={searchParams[queryParamName]} />
+    </form>
   );
 };

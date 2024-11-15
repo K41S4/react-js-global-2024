@@ -1,20 +1,17 @@
+import { redirect } from 'next/navigation';
 import { Dialog } from '../../Components/Dialog/Dialog';
 import { MovieForm } from '../../Components/MovieForm/MovieForm';
-import { useLoaderData, useNavigate, useSearchParams } from 'react-router-dom';
 import { updateMovie } from '../../requests/requests';
+import { getSearchParamsString } from '../../utils';
 
-export const EditMovie = () => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const movie = useLoaderData();
-
+export const EditMovie = async ({ movie, searchParams }) => {
   const handleSubmit = async (movieToUpdate) => {
     await updateMovie({ ...movieToUpdate, id: movie.id });
-    navigate(`/${movie.id}?${searchParams.toString()}`);
+    redirect(`/${movie.id}?${getSearchParamsString(searchParams)}`);
   };
 
   return (
-    <Dialog title="Edit movie" onClose={() => navigate(`/${movie.id}?${searchParams.toString()}`)}>
+    <Dialog title="Edit movie" onClose={() => redirect(`/${movie.id}?${getSearchParamsString(searchParams)}`)}>
       <MovieForm onSubmit={handleSubmit} initialValues={{ ...movie, genre: movie.genres[0] }} />
     </Dialog>
   );
