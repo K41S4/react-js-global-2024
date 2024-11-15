@@ -1,18 +1,20 @@
+'use client';
+
 import { Dialog } from '../../Components/Dialog/Dialog';
 import { MovieForm } from '../../Components/MovieForm/MovieForm';
 import { createMovie } from '../../requests/requests';
-import { useRouter } from 'next/router';
+import { redirect, useSearchParams } from 'next/navigation';
 
 export const AddMovie = () => {
-  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleSubmit = async (movie) => {
     const createdMovieId = await createMovie(movie);
-    router.push({ pathname: `/${createdMovieId}`, query: router.query });
+    redirect(`/${createdMovieId}?${searchParams.toString()}`);
   };
 
   return (
-    <Dialog title="Add movie" onClose={() => router.push({ pathname: '/', query: router.query })}>
+    <Dialog title="Add movie" onClose={() => redirect(`/?${searchParams.toString()}`)}>
       <MovieForm onSubmit={handleSubmit} />
     </Dialog>
   );

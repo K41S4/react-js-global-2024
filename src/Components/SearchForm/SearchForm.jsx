@@ -1,15 +1,22 @@
+'use client';
+
 import styles from './SearchForm.module.css';
 import { genreParamName, queryParamName, sortParamName } from '../../constants';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 
 export const SearchForm = () => {
-  const router = useRouter();
+  const searchParams = useSearchParams();
 
   return (
-    <form action={router.asPath.split('?')[0] ?? ''} method="GET" className={styles.container}>
-      <input type="text" name={queryParamName} defaultValue={router.query[queryParamName]} className={styles.input} />
-      <input type="hidden" name={genreParamName} value={router.query[genreParamName]} />
-      <input type="hidden" name={sortParamName} value={router.query[sortParamName]} />
+    <form action={''} method="GET" className={styles.container}>
+      <input
+        type="text"
+        name={queryParamName}
+        defaultValue={searchParams.get(queryParamName)}
+        className={styles.input}
+      />
+      <input type="hidden" name={genreParamName} value={searchParams.get(genreParamName)} />
+      <input type="hidden" name={sortParamName} value={searchParams.get(sortParamName)} />
       <button className={styles.button}>Search</button>
     </form>
   );

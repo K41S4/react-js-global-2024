@@ -1,11 +1,10 @@
 import Link from 'next/link';
 import styles from './ContextMenu.module.css';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 
 export const ContextMenu = ({ movieId, onClose }) => {
-  const router = useRouter();
-  const params = new URLSearchParams(router.query);
-  const href = `/${movieId}/edit?${params.toString()}`;
+  const searchParams = useSearchParams();
+  const href = `/${movieId}/edit?${searchParams.toString()}`;
 
   return (
     <div className={styles.container}>

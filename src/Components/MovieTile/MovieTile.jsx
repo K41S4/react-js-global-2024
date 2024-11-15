@@ -3,12 +3,11 @@ import styles from './MovieTile.module.css';
 import { ContextMenu } from '../ContextMenu/ContextMenu';
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 
 export const MovieTile = ({ id, imageUrl, title, releaseYear, relevantGenres }) => {
-  const router = useRouter();
-  const params = new URLSearchParams(router.query);
-  const href = `/${id}?${params.toString()}`;
+  const searchParams = useSearchParams();
+  const href = `/${id}?${searchParams.toString()}`;
   const [showMenu, setShowMenu] = useState(false);
 
   const handleOpenMenu = (event) => {
